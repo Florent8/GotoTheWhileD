@@ -1,7 +1,8 @@
-# Épreuve 2 : multi-lang
+﻿# Épreuve 2 : multi-lang
 
 ## Langages utilisés
 + Java
++ PHP
 
 ## Rappel de l'énoncé
 **Objectif :** Écrire un programme vérifiant le bon parenthésage d'une ligne de texte dans le plus de langages possibles. Les parenthèses considérées sont de trois type : [], () et {}<br/>
