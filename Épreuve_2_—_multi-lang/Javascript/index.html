@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>GotoTheWhileD - Javascript</title>
+    </head>
+
+    <body>
+		<input type="text" id="content" name="content" placeholder="Mettez votre texte">
+		<input type="submit" onclick="send()" value="Valider">
+
+		<script type="text/Javascript">
+			let characters = []
+			let chars
+
+			function send() {
+				chars = document.getElementById("content").value.split('');
+				
+				chars.forEach(function(char) {
+					switch(char) {
+						case '(':
+							characters.push('(')
+							break;
+						case ')':
+							checkBracket('(');
+							break;
+						case '{':
+							characters.push('{')
+							break;
+						case '}':
+							checkBracket('{');
+							break;
+						case '[':
+							characters.push('[')
+							break;
+						case ']':
+							checkBracket('[');
+							break;
+					}
+				})
+
+				if (characters.length === 0) {
+					alert("YES")
+				} else {
+					alert("NO")
+				}
+			}
+
+			function checkBracket(bracket) {
+				console.log(characters)
+				if (characters.pop() != bracket) {
+					alert("NO")
+					exit(0)
+				}
+			}
+		</script
+	</body>
+
+</html>

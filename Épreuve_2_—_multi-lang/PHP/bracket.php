@@ -34,7 +34,7 @@ if (empty($characters)) {
 
 function checkBracket($bracket) {
 	global $characters;
-	if (($a = array_pop($characters)) != $bracket) {
+	if (array_pop($characters) != $bracket) {
 		echo "NO";
 		exit(0);
 	}
