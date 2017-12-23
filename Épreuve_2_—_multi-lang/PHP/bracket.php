@@ -1,11 +1,10 @@
 <?php
 
 $characters = [];
-$chars = str_split($argv[1]);
 $openBrackets = ['(', '{', '['];
 $closeBrackets = [')', '}', ']'];
 
-foreach($chars as $char) {
+foreach(str_split($argv[1]) as $char) {
 	if (in_array($char, $openBrackets)) {
 		array_push($characters, $char);
 	} else if (in_array($char, $closeBrackets)) {
