@@ -2,35 +2,18 @@
 
 $characters = [];
 $chars = str_split($argv[1]);
+$openBrackets = ['(', '{', '['];
+$closeBrackets = [')', '}', ']'];
 
 foreach($chars as $char) {
-	switch($char) {
-		case '(':
-			array_push($characters, '(');
-			break;
-		case ')':
-			checkBracket('(');
-			break;
-		case '{':
-			array_push($characters, '{');
-			break;
-		case '}':
-			checkBracket('{');
-			break;
-		case '[':
-			array_push($characters, '[');
-			break;
-		case ']':
-			checkBracket('[');
-			break;	
+	if (in_array($char, $openBrackets)) {
+		array_push($characters, $char);
+	} else if (in_array($char, $closeBrackets)) {
+		checkBracket($openBrackets[array_keys($closeBrackets, $char)[0]]);
 	}
 }
 
-if (empty($characters)) {
-	echo "YES";
-} else {
-	echo "NO";
-}
+echo empty($characters) ? "YES" : "NO";
 
 function checkBracket($bracket) {
 	global $characters;
