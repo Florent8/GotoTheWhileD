@@ -2,8 +2,9 @@
 
 ## Langages utilisés
 + Java
-+ PHP
 + Javascript
++ Kotlin
++ PHP
 + Python
 + Ruby
 
