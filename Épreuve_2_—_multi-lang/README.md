@@ -2,6 +2,7 @@
 
 ## Langages utilisés
 + C
++ C++
 + Java
 + Javascript
 + Kotlin
