@@ -14,42 +14,24 @@
 		<script type="text/Javascript">
 			let characters = []
 			let chars
+			let openBrackets = ['(', '{', '[']
+			let closeBrackets = [')', '}', ']']
 
 			function send() {
 				chars = document.getElementById("content").value.split('');
 				
 				chars.forEach(function(char) {
-					switch(char) {
-						case '(':
-							characters.push('(')
-							break;
-						case ')':
-							checkBracket('(');
-							break;
-						case '{':
-							characters.push('{')
-							break;
-						case '}':
-							checkBracket('{');
-							break;
-						case '[':
-							characters.push('[')
-							break;
-						case ']':
-							checkBracket('[');
-							break;
+					if (openBrackets.indexOf(char) !== -1) {
+						characters.push(char)
+					} else if (closeBrackets.indexOf(char) !== -1) {
+						checkBracket(openBrackets[closeBrackets.indexOf(char)])
 					}
 				})
 
-				if (characters.length === 0) {
-					alert("YES")
-				} else {
-					alert("NO")
-				}
+				alert(characters.length === 0 ? "YES" : "NO")
 			}
 
 			function checkBracket(bracket) {
-				console.log(characters)
 				if (characters.pop() != bracket) {
 					alert("NO")
 					exit(0)
