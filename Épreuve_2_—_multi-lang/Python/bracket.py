@@ -7,20 +7,14 @@ def checkBracket(bracket):
 
 characters = []
 chars = sys.argv[1]
+openBrackets = ['(', '{', '[']
+closeBrackets = [')', '}', ']']
 
 for char in chars:
-	if char == "(":
-		characters.append("(")
-	elif char == ")":
-		checkBracket("(")
-	elif char == "{":
-		characters.append("{")
-	elif char == "}":
-		checkBracket("{")
-	elif char == "[":
-		characters.append("[")
-	elif char == "]":
-		checkBracket("[")
+	if char in openBrackets:
+		characters.append(char)
+	elif char in closeBrackets:
+		checkBracket(openBrackets[closeBrackets.index(char)])
 
 if not characters:
 	print("YES")
