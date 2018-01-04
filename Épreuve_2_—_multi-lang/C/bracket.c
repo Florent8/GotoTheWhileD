@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TABLE_SIZE 3
+#define TABLE_SIZE 3$
 #define MAX_SIZE 1024
 char OPEN_BRACKETS[TABLE_SIZE];
 char openBrackets[MAX_SIZE];
@@ -30,7 +30,7 @@ bool checkBrackets(const int size, const char *charArray) {
         else if (in_array(charArray[i], CLOSE_BRACKETS))
             closeBrackets[--closeCursor] = charArray[i];
 
-    if (MAX_SIZE - 1 - openCursor == closeCursor)
+    if (MAX_SIZE - 1 - openCursor != closeCursor)
         return false;
 
     for (int i = 0; i < openCursor; i++) {
