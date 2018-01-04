@@ -9,6 +9,10 @@ public class Sierpinski {
         }
 
         for (int i = lig - 1; i > 0; i--) {
+            for (int k = 0; k < i / 2; k++) {
+                System.out.print(" ");
+            }
+
             for (int j = 0; j < max - i - 1; j++) {
                 int ii = i;
                 int jj = j;
@@ -21,7 +25,6 @@ public class Sierpinski {
                 }
 
                 if (div == 1) {
-                    //System.out.print("\u001B[44m*\u001B[0m");
                     System.out.print("*");
                 } else {
                     System.out.print(" ");
