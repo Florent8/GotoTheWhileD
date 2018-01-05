@@ -23,15 +23,15 @@ checkBrackets() {
 	closeBrackets=('')
 	closeCursor=1023
 
-	for (( i = 1; i <= ${array[0]}; i++ )); do
+	for (( i = 1; i <= ${#array[@]}; i++ )); do
 		openIndex=$(indexOf "${array[i]}" "${OPEN_BRACKETS[@]}")
 		closeIndex=$(indexOf "${array[i]}" "${CLOSE_BRACKETS[@]}")
 		if [[ ${openIndex} != -1 ]]; then
-			openBrackets[${openCursor}]=$array[i]
+			openBrackets[${openCursor}]=${array[i]}
 			let "openCursor++"
 		elif [[ ${closeIndex} != -1 ]]; then
 			let "closeCursor--"
-			closeBrackets[$closeCursor]=$array[i]
+			closeBrackets[${closeCursor}]=${array[i]}
 		fi
 	done
 
@@ -45,7 +45,7 @@ checkBrackets() {
 	for (( i = 0; i < ${openCursor} && ${stop} != 0 ; i++ )); do
 		openIndex=$(indexOf "${openBrackets[i]}" "${OPEN_BRACKETS[@]}")
 		if [[ ${openIndex} != -1 ]]; then
-			if [[ ${closeBrackets[closeCursor]} != ${CLOSE_BRACKETS[openIndex]} ]]; then
+			if [[ ${closeBrackets[closeCursor]} != ${CLOSE_BRACKETS[openIndex - 1]} ]]; then
 				echo "NO"
 				stop=0
 			fi
@@ -59,6 +59,16 @@ checkBrackets() {
 
 # test avec la chaîne « (] »
 # problème -> réponse = YES
-table=('(' ']')
+# table=('{' '(' ')' '}')
+# result=$(checkBrackets '2' "${table[@]}")
+# echo $result
+
+args=${1}
+table=('')
+
+for (( i = 0; i < ${#args}; i++)); do
+	table[$i]=${args:$i:1}
+done	
+
 result=$(checkBrackets '2' "${table[@]}")
 echo $result
