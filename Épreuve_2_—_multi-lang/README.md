@@ -1,6 +1,7 @@
 ﻿# Épreuve 2 : multi-lang
 
 ## Langages utilisés
++ Assembleur
 + bash
 + C
 + C++
