@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TABLE_SIZE 3$
+#define TABLE_SIZE 3
 #define MAX_SIZE 1024
 char OPEN_BRACKETS[TABLE_SIZE];
 char openBrackets[MAX_SIZE];
