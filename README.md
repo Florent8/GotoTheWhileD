@@ -1,6 +1,8 @@
 # GotoTheWhileD
 Challenge dans le cadre des 50 ans de l'[IUT de Belfort-Montbéliard](http://www.iut-bm.univ-fcomte.fr/)
 
+Pour installer les paquets des langages c'est [ici](https://github.com/Florent8/GotoTheWhileD/blob/master/Installation.md).
+
 ## Épreuve 1 : « *one-lining* »
 **Objectif :** Il faut créer un programme Java dont le code source ne fait pas plus de 1024 octets et qui doit tenir sur une seule ligne. Peu importe qu'il soit écrit de façon lisible (ce qui est impossible sur une seule ligne d'ailleurs) du moment qu'il effectue un traitement remarquable. Ce traitement peut être toucher n'importe quel domaine : calcul, graphisme, base de donnée, etc.<br/>
 Par exemple, le code suivant est recevable, quand bien même il fait quelque chose de minable :

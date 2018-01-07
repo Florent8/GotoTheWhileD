@@ -12,6 +12,8 @@
 + Perl
 + Bash
 
+Pour installer les paquets des langages c'est [ici](https://github.com/Florent8/GotoTheWhileD/blob/master/Installation.md).
+
 ## Rappel de l'énoncé
 **Objectif :** Écrire un programme vérifiant le bon parenthésage d'une ligne de texte dans le plus de langages possibles. Les parenthèses considérées sont de trois type : [], () et {}<br/>
 Par exemple :
