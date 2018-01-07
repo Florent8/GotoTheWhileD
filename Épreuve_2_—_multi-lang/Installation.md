@@ -1,4 +1,10 @@
-# Paquets permettant d'installer les compilateurs/interpréteurs
+﻿# Paquets permettant d'installer les compilateurs/interpréteurs
+
+### NodeJS
+
+## Sur Windows : [https://nodejs.org/en/](https://nodejs.org/en/)
+
+## Sur Linux : [Installing Node.js via package manager](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
 
 ## Kotlin
 
