@@ -11,6 +11,7 @@
 + Perl
 + Python
 + Ruby
++ Scala
 
 Pour installer les paquets des langages c'est [ici](https://github.com/Florent8/GotoTheWhileD/blob/master/%C3%89preuve_2_%E2%80%94_multi-lang/Installation.md).
 
