@@ -1,5 +1,11 @@
 # Paquets permettant d'installer les compilateurs/interpréteurs
 
+## Kotlin
+
+### Sur windows : Utiliser un IDE comme IntelliJIDEA ou installer les paquets comme sur Linux via un Bash Ubuntu ou un Cygwin.
+
+### Sur Linux : [Working with the Command Line Compiler](https://kotlinlang.org/docs/tutorials/command-line.html)
+
 ## Perl
 
 ### Sur windows : [https://www.activestate.com/activeperl/downloads](https://www.activestate.com/activeperl/downloads)
