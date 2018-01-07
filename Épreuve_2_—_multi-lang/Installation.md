@@ -24,4 +24,3 @@ ActivePerl sera installé dans le répertoire ```/opt/ActivePerl-5.12```
 ### Sur windows : [RubyInstaller for Windows](https://rubyinstaller.org/)
 
 ### Sur Linux : [https://www.ruby-lang.org/fr/documentation/installation/#apt](https://www.ruby-lang.org/fr/documentation/installation/#apt)
-
