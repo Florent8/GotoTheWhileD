@@ -1,258 +1,203 @@
-	.file	"bracket.c"
-	.comm	OPEN_BRACKETS,3,1
-	.comm	openBrackets,1024,32
-	.globl	openCursor
-	.bss
-	.align 4
-	.type	openCursor, @object
-	.size	openCursor, 4
+OPEN_BRACKETS:
+  .zero 3
+openBrackets:
+  .zero 1024
 openCursor:
-	.zero	4
-	.comm	CLOSE_BRACKETS,3,1
-	.comm	closeBrackets,1024,32
-	.globl	closeCursor
-	.data
-	.align 4
-	.type	closeCursor, @object
-	.size	closeCursor, 4
+  .zero 4
+CLOSE_BRACKETS:
+  .zero 3
+closeBrackets:
+  .zero 1024
 closeCursor:
-	.long	1024
-	.text
-	.globl	indexOf
-	.type	indexOf, @function
-indexOf:
-.LFB2:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	movl	%edi, %eax
-	movq	%rsi, -32(%rbp)
-	movb	%al, -20(%rbp)
-	movl	$0, -4(%rbp)
-	jmp	.L2
+  .long 1024
+indexOf(char, char const*):
+  push rbp
+  mov rbp, rsp
+  mov eax, edi
+  mov QWORD PTR [rbp-32], rsi
+  mov BYTE PTR [rbp-20], al
+  mov DWORD PTR [rbp-4], 0
 .L5:
-	movl	-4(%rbp), %eax
-	movslq	%eax, %rdx
-	movq	-32(%rbp), %rax
-	addq	%rdx, %rax
-	movzbl	(%rax), %eax
-	cmpb	-20(%rbp), %al
-	jne	.L3
-	movl	-4(%rbp), %eax
-	jmp	.L4
+  cmp DWORD PTR [rbp-4], 2
+  jg .L2
+  mov eax, DWORD PTR [rbp-4]
+  movsx rdx, eax
+  mov rax, QWORD PTR [rbp-32]
+  add rax, rdx
+  movzx eax, BYTE PTR [rax]
+  cmp BYTE PTR [rbp-20], al
+  jne .L3
+  mov eax, DWORD PTR [rbp-4]
+  jmp .L4
 .L3:
-	addl	$1, -4(%rbp)
+  add DWORD PTR [rbp-4], 1
+  jmp .L5
 .L2:
-	cmpl	$2, -4(%rbp)
-	jle	.L5
-	movl	$-1, %eax
+  mov eax, -1
 .L4:
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE2:
-	.size	indexOf, .-indexOf
-	.globl	in_array
-	.type	in_array, @function
-in_array:
-.LFB3:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$16, %rsp
-	movl	%edi, %eax
-	movq	%rsi, -16(%rbp)
-	movb	%al, -4(%rbp)
-	movsbl	-4(%rbp), %eax
-	movq	-16(%rbp), %rdx
-	movq	%rdx, %rsi
-	movl	%eax, %edi
-	call	indexOf
-	cmpl	$-1, %eax
-	setne	%al
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE3:
-	.size	in_array, .-in_array
-	.globl	checkBrackets
-	.type	checkBrackets, @function
-checkBrackets:
-.LFB4:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$32, %rsp
-	movl	%edi, -20(%rbp)
-	movq	%rsi, -32(%rbp)
-	movl	$0, -12(%rbp)
-	jmp	.L9
+  pop rbp
+  ret
+in_array(char, char const*):
+  push rbp
+  mov rbp, rsp
+  sub rsp, 16
+  mov eax, edi
+  mov QWORD PTR [rbp-16], rsi
+  mov BYTE PTR [rbp-4], al
+  movsx eax, BYTE PTR [rbp-4]
+  mov rdx, QWORD PTR [rbp-16]
+  mov rsi, rdx
+  mov edi, eax
+  call indexOf(char, char const*)
+  cmp eax, -1
+  setne al
+  leave
+  ret
+checkBrackets(int, char const*):
+  push rbp
+  mov rbp, rsp
+  sub rsp, 32
+  mov DWORD PTR [rbp-20], edi
+  mov QWORD PTR [rbp-32], rsi
+  mov DWORD PTR [rbp-4], 0
 .L12:
-	movl	-12(%rbp), %eax
-	movslq	%eax, %rdx
-	movq	-32(%rbp), %rax
-	addq	%rdx, %rax
-	movzbl	(%rax), %eax
-	movsbl	%al, %eax
-	movl	$OPEN_BRACKETS, %esi
-	movl	%eax, %edi
-	call	in_array
-	testb	%al, %al
-	je	.L10
-	movl	openCursor(%rip), %eax
-	leal	1(%rax), %edx
-	movl	%edx, openCursor(%rip)
-	movl	-12(%rbp), %edx
-	movslq	%edx, %rcx
-	movq	-32(%rbp), %rdx
-	addq	%rcx, %rdx
-	movzbl	(%rdx), %edx
-	cltq
-	movb	%dl, openBrackets(%rax)
-	jmp	.L11
+  mov eax, DWORD PTR [rbp-4]
+  cmp eax, DWORD PTR [rbp-20]
+  jge .L9
+  mov eax, DWORD PTR [rbp-4]
+  movsx rdx, eax
+  mov rax, QWORD PTR [rbp-32]
+  add rax, rdx
+  movzx eax, BYTE PTR [rax]
+  movsx eax, al
+  mov esi, OFFSET FLAT:OPEN_BRACKETS
+  mov edi, eax
+  call in_array(char, char const*)
+  test al, al
+  je .L10
+  mov eax, DWORD PTR [rbp-4]
+  movsx rdx, eax
+  mov rax, QWORD PTR [rbp-32]
+  lea rcx, [rdx+rax]
+  mov eax, DWORD PTR openCursor[rip]
+  lea edx, [rax+1]
+  mov DWORD PTR openCursor[rip], edx
+  movzx edx, BYTE PTR [rcx]
+  cdqe
+  mov BYTE PTR openBrackets[rax], dl
+  jmp .L11
 .L10:
-	movl	-12(%rbp), %eax
-	movslq	%eax, %rdx
-	movq	-32(%rbp), %rax
-	addq	%rdx, %rax
-	movzbl	(%rax), %eax
-	movsbl	%al, %eax
-	movl	$CLOSE_BRACKETS, %esi
-	movl	%eax, %edi
-	call	in_array
-	testb	%al, %al
-	je	.L11
-	movl	closeCursor(%rip), %eax
-	subl	$1, %eax
-	movl	%eax, closeCursor(%rip)
-	movl	closeCursor(%rip), %eax
-	movl	-12(%rbp), %edx
-	movslq	%edx, %rcx
-	movq	-32(%rbp), %rdx
-	addq	%rcx, %rdx
-	movzbl	(%rdx), %edx
-	cltq
-	movb	%dl, closeBrackets(%rax)
+  mov eax, DWORD PTR [rbp-4]
+  movsx rdx, eax
+  mov rax, QWORD PTR [rbp-32]
+  add rax, rdx
+  movzx eax, BYTE PTR [rax]
+  movsx eax, al
+  mov esi, OFFSET FLAT:CLOSE_BRACKETS
+  mov edi, eax
+  call in_array(char, char const*)
+  test al, al
+  je .L11
+  mov eax, DWORD PTR [rbp-4]
+  movsx rdx, eax
+  mov rax, QWORD PTR [rbp-32]
+  add rdx, rax
+  mov eax, DWORD PTR closeCursor[rip]
+  sub eax, 1
+  mov DWORD PTR closeCursor[rip], eax
+  mov eax, DWORD PTR closeCursor[rip]
+  movzx edx, BYTE PTR [rdx]
+  cdqe
+  mov BYTE PTR closeBrackets[rax], dl
 .L11:
-	addl	$1, -12(%rbp)
+  add DWORD PTR [rbp-4], 1
+  jmp .L12
 .L9:
-	movl	-12(%rbp), %eax
-	cmpl	-20(%rbp), %eax
-	jl	.L12
-	movl	openCursor(%rip), %eax
-	movl	$1023, %edx
-	subl	%eax, %edx
-	movl	closeCursor(%rip), %eax
-	cmpl	%eax, %edx
-	je	.L13
-	movl	$0, %eax
-	jmp	.L14
+  mov eax, DWORD PTR openCursor[rip]
+  mov edx, 1023
+  sub edx, eax
+  mov eax, DWORD PTR closeCursor[rip]
+  cmp edx, eax
+  je .L13
+  mov eax, 0
+  jmp .L14
 .L13:
-	movl	$0, -8(%rbp)
-	jmp	.L15
+  mov DWORD PTR [rbp-8], 0
 .L17:
-	movl	-8(%rbp), %eax
-	cltq
-	movzbl	openBrackets(%rax), %eax
-	movsbl	%al, %eax
-	movl	$OPEN_BRACKETS, %esi
-	movl	%eax, %edi
-	call	indexOf
-	movl	%eax, -4(%rbp)
-	cmpl	$-1, -4(%rbp)
-	je	.L16
-	movl	closeCursor(%rip), %eax
-	leal	1(%rax), %edx
-	movl	%edx, closeCursor(%rip)
-	cltq
-	movzbl	closeBrackets(%rax), %edx
-	movl	-4(%rbp), %eax
-	cltq
-	movzbl	CLOSE_BRACKETS(%rax), %eax
-	cmpb	%al, %dl
-	je	.L16
-	movl	$0, %eax
-	jmp	.L14
+  mov eax, DWORD PTR openCursor[rip]
+  cmp DWORD PTR [rbp-8], eax
+  jge .L15
+  mov eax, DWORD PTR [rbp-8]
+  cdqe
+  movzx eax, BYTE PTR openBrackets[rax]
+  movsx eax, al
+  mov esi, OFFSET FLAT:OPEN_BRACKETS
+  mov edi, eax
+  call indexOf(char, char const*)
+  mov DWORD PTR [rbp-12], eax
+  cmp DWORD PTR [rbp-12], -1
+  je .L16
+  mov eax, DWORD PTR closeCursor[rip]
+  lea edx, [rax+1]
+  mov DWORD PTR closeCursor[rip], edx
+  cdqe
+  movzx edx, BYTE PTR closeBrackets[rax]
+  mov eax, DWORD PTR [rbp-12]
+  cdqe
+  movzx eax, BYTE PTR CLOSE_BRACKETS[rax]
+  cmp dl, al
+  setne al
+  test al, al
+  je .L16
+  mov eax, 0
+  jmp .L14
 .L16:
-	addl	$1, -8(%rbp)
+  add DWORD PTR [rbp-8], 1
+  jmp .L17
 .L15:
-	movl	openCursor(%rip), %eax
-	cmpl	%eax, -8(%rbp)
-	jl	.L17
-	movl	$1, %eax
+  mov eax, 1
 .L14:
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE4:
-	.size	checkBrackets, .-checkBrackets
-	.section	.rodata
+  leave
+  ret
 .LC0:
-	.string	"YES"
+  .string "YES"
 .LC1:
-	.string	"NO"
-	.text
-	.globl	main
-	.type	main, @function
+  .string "NO"
 main:
-.LFB5:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	pushq	%rbx
-	subq	$24, %rsp
-	.cfi_offset 3, -24
-	movl	%edi, -20(%rbp)
-	movq	%rsi, -32(%rbp)
-	movb	$40, OPEN_BRACKETS(%rip)
-	movb	$123, OPEN_BRACKETS+1(%rip)
-	movb	$91, OPEN_BRACKETS+2(%rip)
-	movb	$41, CLOSE_BRACKETS(%rip)
-	movb	$125, CLOSE_BRACKETS+1(%rip)
-	movb	$93, CLOSE_BRACKETS+2(%rip)
-	movq	-32(%rbp), %rax
-	addq	$8, %rax
-	movq	(%rax), %rbx
-	movq	-32(%rbp), %rax
-	addq	$8, %rax
-	movq	(%rax), %rax
-	movq	%rax, %rdi
-	call	strlen
-	movq	%rbx, %rsi
-	movl	%eax, %edi
-	call	checkBrackets
-	testb	%al, %al
-	je	.L19
-	movl	$.LC0, %eax
-	jmp	.L20
+  push rbp
+  mov rbp, rsp
+  push rbx
+  sub rsp, 24
+  mov DWORD PTR [rbp-20], edi
+  mov QWORD PTR [rbp-32], rsi
+  mov BYTE PTR OPEN_BRACKETS[rip], 40
+  mov BYTE PTR OPEN_BRACKETS[rip+1], 123
+  mov BYTE PTR OPEN_BRACKETS[rip+2], 91
+  mov BYTE PTR CLOSE_BRACKETS[rip], 41
+  mov BYTE PTR CLOSE_BRACKETS[rip+1], 125
+  mov BYTE PTR CLOSE_BRACKETS[rip+2], 93
+  mov rax, QWORD PTR [rbp-32]
+  add rax, 8
+  mov rbx, QWORD PTR [rax]
+  mov rax, QWORD PTR [rbp-32]
+  add rax, 8
+  mov rax, QWORD PTR [rax]
+  mov rdi, rax
+  call strlen
+  mov rsi, rbx
+  mov edi, eax
+  call checkBrackets(int, char const*)
+  test al, al
+  je .L19
+  mov eax, OFFSET FLAT:.LC0
+  jmp .L20
 .L19:
-	movl	$.LC1, %eax
+  mov eax, OFFSET FLAT:.LC1
 .L20:
-	movq	%rax, %rdi
-	call	puts
-	movl	$0, %eax
-	addq	$24, %rsp
-	popq	%rbx
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE5:
-	.size	main, .-main
-	.ident	"GCC: (Ubuntu 5.4.0-6ubuntu1~16.04.5) 5.4.0 20160609"
-	.section	.note.GNU-stack,"",@progbits
+  mov rdi, rax
+  call puts
+  mov eax, 0
+  add rsp, 24
+  pop rbx
+  pop rbp
+  ret
