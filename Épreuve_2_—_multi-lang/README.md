@@ -6,9 +6,8 @@
 + C++
 + Groovy
 + Java
-+ Javascript
++ JavaScript
 + Kotlin
-+ NodeJS
 + PHP
 + Perl
 + Python
